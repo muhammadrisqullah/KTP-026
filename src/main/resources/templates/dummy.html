@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>TODO write content</div>
+        <div class="table-responsive">
+            <a href="/create">Create</a>
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th>NIK</th>
+                            <th>tanggal lahir</th>
+                            <th>foto</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="godummy:${godummy}">
+                            <td th:text="${godummy.id}"></td>
+                            <td th:text="${godummy.tanggal}"></td>
+                            <td th:text="${#calendars.format(godummy.tanggal, 'dd-MMM-yyyy')}"></td>
+                            
+                            <td>
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    </body>
+</html>
