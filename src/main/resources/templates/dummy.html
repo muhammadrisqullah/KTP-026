@@ -5,57 +5,63 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
-    <head>
-        <title>Dummy</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
-                accesskey="" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
+
+<head>
+    <title>Dummy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" accesskey=""
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-    </head>
+</head>
 
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/data">Database</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="index.html">Home</a>
-                        </li>
-                </div>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/data">Database</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/dummy">Dummy</a>
+                    </li>
             </div>
-        </nav>
-        <div class="table-responsive">
-            <a href="/create">Create</a>
-            <table class="table align-middle">
-                <thead>
-                    <tr>
-                        <th>NIK</th>
-                        <th>tanggal lahir</th>
-                        <th>foto</th>
-                        <th>aksi</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="godummy:${goDummy}">
-                        <td th:text="${godummy.id}"></td>
-                        <td th:text="${#calendars.format(godummy.tanggal, 'dd-MM-yyyy')}"></td>
-                        <td><img th:src="@{${'/image?id='+ godummy.id}}" alt="poto" width="100"></td>
-                        <td>
-                            <a href="#">Edit</a>
-                            <a href="#">Delete</a>
-                        </td>
-
-                       
-                    </tr>
-                </tbody>
-            </table>
         </div>
-    </body>
+    </nav>
+    <div>Dummy </div>
+    <div class="table-responsive">
+        <a href="/create">Create</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>NIK</th>
+                    <th>Tanggal lahir</th>
+                    <th>Foto</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="godummy:${goDummy}">
+                    <td th:text="${godummy.id}"></td>
+                    <td th:text="${#calendars.format(godummy.tanggal, 'dd-MM-yyyy')}"></td>
+                    <td><img th:src="@{${'/image?id='+ godummy.id}}" alt="poto" width="100"></td>
+                    <td>
+                        <a class="btn btn-secondary mt-5" th:href="@{/edit/{id}(id=${godummy.id})}">Edit</a>
+                        <a class="btn btn-danger mt-5" th:href="@{/delete/{id}(id=${godummy.id})}">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
 </html>

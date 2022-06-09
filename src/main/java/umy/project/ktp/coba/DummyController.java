@@ -16,6 +16,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -77,7 +79,27 @@ public class DummyController {
 
         dummyController.create(dumdata);
 
-        return "dummy/create";
+        return "redirect:/dummy";
+    }
+    @PostMapping(value="/updatedata", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String updateData(@RequestParam("gambar") MultipartFile file, HttpServletRequest data) throws ParseException, Exception{
+        Dummy dumdata = new Dummy();
+        
+        String id = data.getParameter("id");
+        int iid = Integer.parseInt(id);
+        
+        String tanggal = data.getParameter("tanggal");
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(tanggal);
+        
+        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+        byte[] image = file.getBytes();
+        
+        dumdata.setId(iid);
+        dumdata.setTanggal(date);
+        dumdata.setGambar(image);
+        
+        dummyController.edit(dumdata);
+        return "redirect:/dummy";
     }
     @RequestMapping(value = "/image", method = RequestMethod.GET ,produces = {
     MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE
@@ -87,6 +109,15 @@ public class DummyController {
       byte[] image = dumdata.getGambar();
       return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(image);
     }
-    
-
+    @RequestMapping("/edit/{id}")
+    public String doEdit(@PathVariable("id")int iid, Model Model)throws Exception{
+       Dummy dumdata = dummyController.findDummy(iid);
+       Model.addAttribute("goDummy", data);
+       return "editktp";
+    }
+    @GetMapping("/delete/{id}")    
+    public String deleteData(@PathVariable("id") int iid, Model model) throws Exception{
+        dummyController.destroy(iid);
+        return "redirect:/dummy"; 
+    }
 }
